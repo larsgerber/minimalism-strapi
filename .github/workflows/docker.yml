@@ -1,0 +1,26 @@
+name: Docker CI
+
+on: push
+
+jobs:  
+  build:
+    runs-on: self-hosted
+
+    steps:
+    - uses: actions/checkout@v1
+
+    - name: Set environment variables
+      run: | 
+        echo "SERVER_PORT=${{secrets.SERVER_PORT}}" >> .env
+
+    - name: Build Docker image
+      run: | 
+        docker-compose build
+
+    - name: Build Docker container
+      run: | 
+        docker-compose up -d
+
+    - name: Remove unused Docker images
+      run: | 
+        docker image prune --all --force

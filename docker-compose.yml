@@ -1,0 +1,20 @@
+version: '3'
+services:
+  app:
+    container_name: minimalism-strapi
+    restart: always
+    build: .
+    ports:
+      - "${SERVER_PORT}:1337"
+    labels:
+      traefik.enable: "true"
+      traefik.http.routers.minimalism-blog.rule: "Host(`strapi.larsgerber.ch`)"
+      traefik.http.routers.minimalism-blog.entrypoints: websecure
+      traefik.http.routers.minimalism-blog.tls: "true"
+      traefik.http.routers.minimalism-blog.tls.certresolver: resolver
+      traefik.http.routers.minimalism-blog.middlewares: security-headers
+      traefik.http.routers.minimalism-blog.tls.options: default
+networks:
+  default:
+    external: true
+    name: traefik_default
