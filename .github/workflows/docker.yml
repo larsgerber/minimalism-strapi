@@ -12,6 +12,10 @@ jobs:
     - name: Set environment variables
       run: | 
         echo "SERVER_PORT=${{secrets.SERVER_PORT}}" >> .env
+        echo "CLOUDINARY_SECRET=${{secrets.CLOUDINARY_SECRET}}" >> .env
+        echo "CLOUDINARY_NAME=${{secrets.CLOUDINARY_NAME}}" >> .env
+        echo "CLOUDINARY_KEY=${{secrets.CLOUDINARY_KEY}}" >> .env
+        echo "CLOUDINARY_FOLDER=${{secrets.CLOUDINARY_FOLDER}}" >> .env
 
     - name: Build Docker image
       run: | 
