@@ -10,4 +10,3 @@ npm start
 ```
 
 Support me on: [buymeacoffee/larsgerber](https://www.buymeacoffee.com/larsgerber)
-
