@@ -1,20 +1,22 @@
 version: '3'
 services:
   app:
+    container_name: minimalism-blog-keystone
+    restart: always
+    image: minimalism-blog-app
+    ports:
+      - 8082:8082
+    environment:
+      SERVER_PORT: 8082
+
+  backend:
     container_name: minimalism-strapi
     restart: always
-    build: .
+    image: docker.larsgerber.ch/blog/minimalism-backend:archive-strapi
     ports:
-      - "${SERVER_PORT}:1337"
-    labels:
-      traefik.enable: "true"
-      traefik.http.routers.minimalism-strapi.rule: "Host(`strapi.larsgerber.ch`)"
-      traefik.http.routers.minimalism-strapi.entrypoints: websecure
-      traefik.http.routers.minimalism-strapi.tls: "true"
-      traefik.http.routers.minimalism-strapi.tls.certresolver: resolver
-      traefik.http.routers.minimalism-strapi.middlewares: security-headers@file
-      traefik.http.routers.minimalism-strapi.tls.options: default
-networks:
-  default:
-    external: true
-    name: traefik
+      - 8080:1337
+
+# first visit https://github.com/larsgerber/minimalism-blog/blob/strapi/docker-compose.yml
+# docker compose up
+# username: lars.gerber@bluewin.ch
+# password: Test-blog1
